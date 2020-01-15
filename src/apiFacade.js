@@ -1,6 +1,4 @@
-import { DNDList } from "./settings";
-
-const URL = "https://jabsvip.dk/CA3";
+const URL = "https://arbolvida.dk/Skelet";
 function handleHttpErrors(res) {
   if (!res.ok) {
     return Promise.reject({ status: res.status, fullError: res.json() });
@@ -57,9 +55,25 @@ class ApiFacade {
     return fetch(URL + "/api/info/user", options).then(handleHttpErrors);
   };
 
-  fetchSpell = id => {
+  movieInfoSimple = id => {
     const options = this.makeOptions("GET", false);
-    return fetch(URL + DNDList + id, options).then(handleHttpErrors);
+    return fetch(URL + "/api/movie/movie-info-simple/" + id, options).then(
+      handleHttpErrors
+    );
+  };
+
+  movieInfoAll = id => {
+    const options = this.makeOptions("GET", true);
+    return fetch(URL + "/api/movie/movie-info-all/" + id, options).then(
+      handleHttpErrors
+    );
+  };
+
+  movieCount = id => {
+    const options = this.makeOptions("POST", true);
+    return fetch(URL + "/api/movie/movie-count/" + id, options).then(
+      handleHttpErrors
+    );
   };
 }
 const facade = new ApiFacade();

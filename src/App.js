@@ -7,7 +7,9 @@ import {
   Switch
 } from "react-router-dom";
 import facade from "./apiFacade";
-import DND from "./components/DND";
+import MovieInfo from "./components/MovieInfo";
+import MovieAll from "./components/MovieAll";
+import MovieCount from "./components/MovieCount";
 import Home from "./components/Home";
 import {
   Button,
@@ -32,7 +34,7 @@ class LogIn extends Component {
   render() {
     return (
       <Container>
-        <Form onSubmit={evt => this.login(evt)}>
+        <Form style={{ marginBottom: 50 }} onSubmit={evt => this.login(evt)}>
           <Form.Group controlId="username">
             <Form.Label>Username</Form.Label>
             <Form.Control
@@ -54,6 +56,7 @@ class LogIn extends Component {
             Login
           </Button>
         </Form>
+        <MovieInfo />
       </Container>
     );
   }
@@ -76,34 +79,6 @@ class LoggedIn extends Component {
     );
   }
 }
-/*
-function LoggedIn() {
-  const [data, setData] = useState({});
-  const [id, setId] = useState(1);
-  useEffect(() => {
-    facade.fetchSpell(id).then(res => setData(res));
-    //facade.fetchData().then(res => setData(res));
-  }, [id]);
-
-  function set_Id(evt) {
-    const id = document.getElementById("id").value;
-    setId(id);
-  }
-
-  return (
-    <div>
-      <h2>Data Received from server</h2>
-      <div>
-        <Header />
-        <input id="id" type="text" placeholder="Search" />
-        <button onClick={set_Id}> Search </button>
-      </div>
-      <h3>{JSON.stringify(data)}</h3>
-      <Content />
-    </div>
-  );
-}
-*/
 
 class App extends Component {
   constructor(props) {
@@ -147,8 +122,18 @@ const Header = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink activeClassName="active" to="/DND">
-          Dungeons and Dragon
+        <NavLink activeClassName="active" to="/MovieInfo">
+          Movies
+        </NavLink>
+      </li>
+      <li>
+        <NavLink activeClassName="active" to="/MovieAll">
+          All Movies
+        </NavLink>
+      </li>
+      <li>
+        <NavLink activeClassName="active" to="/MovieCount">
+          Movie Count
         </NavLink>
       </li>
     </ul>
@@ -162,9 +147,18 @@ const Content = () => {
         {" "}
         <Home />{" "}
       </Route>
-      <Route path="/DND">
+      <Route path="/MovieInfo">
         {" "}
-        <DND />{" "}
+        <MovieInfo />{" "}
+      </Route>
+
+      <Route path="/MovieAll">
+        {" "}
+        <MovieAll />{" "}
+      </Route>
+      <Route path="/MovieCount">
+        {" "}
+        <MovieCount />{" "}
       </Route>
     </Switch>
   );
